@@ -26,7 +26,7 @@ class Space extends Component {
   handleChange({target}) {
     const {space} = this.state
 
-    space[target.id] = target.checked
+    space[target.dataset.property] = target.checked
 
     this.setState({space})
 
@@ -42,6 +42,8 @@ class Space extends Component {
       backgroundImage: `url(${space.image})`,
       borderColor: accentColor
     }
+
+    const id = prefix => `${prefix}-${space.id}`
 
     return <section data-component="space" style={style}>
       <section className="header" style={{backgroundColor: accentColor}}>
@@ -70,30 +72,33 @@ class Space extends Component {
             <input
               checked={space.welcome}
               className="field"
-              id="welcome"
+              data-property="welcome"
+              id={id("welcome")}
               onChange={this.handleChange.bind(this)}
               type="checkbox" />
-            <label htmlFor="welcome">Welcome</label>
+            <label htmlFor={id("welcome")}>Welcome</label>
           </div>
 
           <div className="field-group" data-group-type="checkbox">
             <input
               checked={space.private}
               className="field"
-              id="private"
+              data-property="private"
+              id={id("private")}
               onChange={this.handleChange.bind(this)}
               type="checkbox" />
-            <label htmlFor="private">Private</label>
+            <label htmlFor={id("private")}>Private</label>
           </div>
 
           <div className="field-group" data-group-type="checkbox">
             <input
               checked={space.featured}
               className="field"
-              id="featured"
+              data-property="featured"
+              id={id("featured")}
               onChange={this.handleChange.bind(this)}
               type="checkbox" />
-            <label htmlFor="featured">Featured</label>
+            <label htmlFor={id("featured")}>Featured</label>
           </div>
         </div>
 
