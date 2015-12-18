@@ -41,32 +41,18 @@ class SpacesEdit extends Component {
       return
     }
 
-    let space = {}
-    const members = []
-    const onComplete = () => this.setState({
-      members,
-      space,
-      status: "ready"
-    })
-
     data.Space.getById(parseInt(this.props.params.id, 10))
-      .then(nextSpace => {
+      .then(space => {
         // 404 handler, could be replaced by extending the data store with promise rejection.
-        if (typeof nextSpace === "undefined") return this.props.history.replaceState(null, "/")
+        if (typeof space === "undefined") return this.props.history.replaceState(null, "/")
 
-        space = nextSpace
-
-        if (!space.members || space.members.length === 0) return onComplete()
-
-        space.members.forEach(id => {
-          data.User
-            .getById(parseInt(id, 10))
-            .then(user => {
-              members.push(user)
-
-              if (members.length === space.members.length) onComplete()
-            })
-        })
+        data.User
+          .getAll()
+          .then(members => this.setState({
+            members,
+            space,
+            status: "ready"
+          }))
       })
   }
 
@@ -91,6 +77,9 @@ class SpacesEdit extends Component {
     switch (target.type) {
       case "checkbox":
         value = target.checked
+        break
+      case "select-multiple":
+        value = Array.from(target.selectedOptions, option => option.value)
         break
       default:
         value = target.value
@@ -182,8 +171,8 @@ class SpacesEdit extends Component {
 
         <div className="field-group">
           <label className="label" htmlFor="members">Members:</label>
-          <select className="field" id="members" multiple>
-            {members.map(({first_name, last_name}, index) => <option key={index} value={index}>
+          <select className="field" id="members" multiple onChange={this.handleChange.bind(this)} value={space.members}>
+            {members.map(({first_name, last_name, id}) => <option key={id} value={id}>
               {`${first_name} ${last_name}`}
             </option>)}
           </select>
