@@ -12,12 +12,14 @@ class SpacesEdit extends Component {
 
     if (props.params.id) {
       Object.assign(this.state, {
+        members: [],
         status: "fetching",
         space: {}
       })
     }
     else {
       Object.assign(this.state, {
+        members: [],
         status: "ready",
         space: {}
       })
@@ -30,7 +32,8 @@ class SpacesEdit extends Component {
     let space = {}
     const members = []
     const onComplete = () => this.setState({
-      space: Object.assign(space, {members}),
+      members,
+      space,
       status: "ready"
     })
 
@@ -92,7 +95,7 @@ class SpacesEdit extends Component {
   }
 
   render() {
-    const {space, status} = this.state
+    const {members, space, status} = this.state
 
     if (status !== "ready") {
       return <section data-component="spaces-edit">Loading</section>
@@ -153,6 +156,11 @@ class SpacesEdit extends Component {
 
         <div className="field-group">
           <label className="label" htmlFor="members">Members:</label>
+          <select className="field" id="members" multiple>
+            {members.map(({first_name, last_name}, index) => <option key={index} value={index}>
+              {`${first_name} ${last_name}`}
+            </option>)}
+          </select>
         </div>
       </section>
 
