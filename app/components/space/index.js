@@ -2,48 +2,102 @@ import "./space.styl"
 
 import React, {Component, PropTypes} from "react"
 import {Link} from "react-router"
+import data from "resources/data"
 
 class Space extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      // Updates often enough to give the effect of players joining.
+      playersCount: Math.floor(Math.random() * 100),
+      space: props.space
+    }
+  }
+
   getAccentColor() {
-    const {id, title} = this.props
+    const {id, title} = this.state.space
     // Generates a good range of predictable colors within the gamut.
     const rotation = title.length * (parseInt(id, 10) * 5 + 4) % 360
 
     return `hsl(${rotation}, 100%, 75%)`
   }
 
+  handleChange({target}) {
+    const {space} = this.state
+
+    space[target.id] = target.checked
+
+    this.setState({space})
+
+    data.Space
+      .updateById(parseInt(space.id, 10), space)
+  }
+
   render() {
-    const {props} = this
+    const {playersCount, space} = this.state
     const accentColor = this.getAccentColor()
 
     const style = {
-      backgroundImage: `url(${props.image})`,
+      backgroundImage: `url(${space.image})`,
       borderColor: accentColor
     }
 
     return <section data-component="space" style={style}>
       <section className="header" style={{backgroundColor: accentColor}}>
         <div className="title" data-selectable>
-          {props.title}
+          {space.title}
         </div>
 
         <div className="details" data-selectable>
-          {`${props.user.first_name} ${props.user.last_name}`}
+          {`${space.user.first_name} ${space.user.last_name}`}
         </div>
       </section>
 
       <section className="content">
         <div className="description" data-selectable>
-          {props.description}
+          {space.description}
         </div>
 
         <div className="stats">
-          <span className="stat">{`Players: ${Math.floor(Math.random() * 100)}`}</span>
+          <span className="stat">{`Players: ${playersCount}`}</span>
         </div>
       </section>
 
       <section className="actions">
-        <Link className="action" data-actionable style={{backgroundColor: accentColor}} to={`/edit/${props.id}`}>
+        <div className="fields">
+          <div className="field-group" data-group-type="checkbox">
+            <input
+              checked={space.welcome}
+              className="field"
+              id="welcome"
+              onChange={this.handleChange.bind(this)}
+              type="checkbox" />
+            <label htmlFor="welcome">Welcome</label>
+          </div>
+
+          <div className="field-group" data-group-type="checkbox">
+            <input
+              checked={space.private}
+              className="field"
+              id="private"
+              onChange={this.handleChange.bind(this)}
+              type="checkbox" />
+            <label htmlFor="private">Private</label>
+          </div>
+
+          <div className="field-group" data-group-type="checkbox">
+            <input
+              checked={space.featured}
+              className="field"
+              id="featured"
+              onChange={this.handleChange.bind(this)}
+              type="checkbox" />
+            <label htmlFor="featured">Featured</label>
+          </div>
+        </div>
+
+        <Link className="action" data-actionable style={{backgroundColor: accentColor}} to={`/edit/${space.id}`}>
           Edit
         </Link>
       </section>
@@ -52,15 +106,7 @@ class Space extends Component {
 }
 
 Space.propTypes = {
-  created_by: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
-  featured: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired,
-  members: PropTypes.array,
-  private: PropTypes.bool.isRequired, // eslint-disable-line quote-props
-  title: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
-  welcome: PropTypes.bool.isRequired
+  space: PropTypes.object.isRequired
 }
 
 export default Space

@@ -64,7 +64,7 @@ class Spaces extends Component {
       </section>
 
 
-      {spaces.length ? spaces.map(props => <Space {...props} key={props.id} />) : this.renderPlaceholder()}
+      {spaces.length ? spaces.map(space => <Space key={space.id} space={space} />) : this.renderPlaceholder()}
     </section>
   }
 

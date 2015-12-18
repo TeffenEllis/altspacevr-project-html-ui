@@ -38,11 +38,10 @@ div, section
 .field-group
   flex-flow row
 
-  & + .field-group
-    margin-top 15px
-
   &[data-group-type="checkbox"]
-    margin-left 15%
+    align-items center
+    margin-bottom 0.2em
+    margin-left 1em
 
 .label
   display flex
@@ -65,6 +64,11 @@ div, section
   &::placeholder
     font-style italic
 
+  &[type="checkbox"]
+    flex 0 0 auto
+  &[type="checkbox"] + label
+    margin-left 1em
+
   select&
     background-color transparent
     border-color rgba(255, 255, 255, 0.2)
@@ -73,6 +77,7 @@ div, section
       color white
 
   select&:empty::before
+    color white
     display block
     text-align center
     content "No entries"

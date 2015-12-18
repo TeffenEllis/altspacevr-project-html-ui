@@ -153,6 +153,7 @@ class SpacesEdit extends Component {
         <div className="field-group" data-group-type="checkbox">
           <input
             checked={space.welcome}
+            className="field"
             id="welcome"
             onChange={this.handleChange.bind(this)}
             type="checkbox" />
@@ -162,6 +163,7 @@ class SpacesEdit extends Component {
         <div className="field-group" data-group-type="checkbox">
           <input
             checked={space.private}
+            className="field"
             id="private"
             onChange={this.handleChange.bind(this)}
             type="checkbox" />
@@ -171,6 +173,7 @@ class SpacesEdit extends Component {
         <div className="field-group" data-group-type="checkbox">
           <input
             checked={space.featured}
+            className="field"
             id="featured"
             onChange={this.handleChange.bind(this)}
             type="checkbox" />
