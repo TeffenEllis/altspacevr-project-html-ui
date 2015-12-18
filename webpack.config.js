@@ -21,7 +21,7 @@ exports.module = {
 exports.output = {
   filename: "[name].js",
   path: resolve(__dirname, "dist"),
-  publicPath: "./",
+  publicPath: ENVIRONMENT === "production" ? "./" : "/",
   sourceMapFilename: "[name].map"
 }
 
