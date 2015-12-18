@@ -37,11 +37,10 @@ class Spaces extends Component {
 
   render() {
     const {query} = this.state
+    const pattern = new RegExp(query, "i")
     let {spaces} = this.state
 
     function matchedQuery({title, user: {first_name, last_name}}) {
-      const pattern = new RegExp(query, "i")
-
       return [title, `${first_name} ${last_name}`].some(criteria => criteria.search(pattern) !== -1)
     }
 
