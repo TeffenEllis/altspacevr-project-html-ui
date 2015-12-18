@@ -67,6 +67,30 @@ class SpacesEdit extends Component {
     return base + appended
   }
 
+  handleChange({target}) {
+    const {space} = this.state
+
+    let value
+
+    switch (target.type) {
+      case "checkbox":
+        value = target.checked
+        break
+      default:
+        value = target.value
+    }
+
+    space[target.id] = value
+
+    this.setState({space})
+  }
+
+  handleSave() {
+    data.Space
+      .updateById(parseInt(this.state.space.id, 10), this.state.space)
+      .then(() => this.props.history.replaceState(null, "/"))
+  }
+
   render() {
     const {space, status} = this.state
 
@@ -84,6 +108,7 @@ class SpacesEdit extends Component {
             autoFocus
             className="field"
             id="title"
+            onChange={this.handleChange.bind(this)}
             placeholder="Something memorable."
             value={space.title} />
         </div>
@@ -93,23 +118,36 @@ class SpacesEdit extends Component {
           <textarea
             className="field"
             id="description"
+            onChange={this.handleChange.bind(this)}
             placeholder="What makes this space unlike others?"
             value={space.description}>
             </textarea>
         </div>
 
         <div className="field-group" data-group-type="checkbox">
-          <input checked={space.welcome} id="welcome" type="checkbox" />
+          <input
+            checked={space.welcome}
+            id="welcome"
+            onChange={this.handleChange.bind(this)}
+            type="checkbox" />
           <label htmlFor="welcome">Welcome space</label>
         </div>
 
         <div className="field-group" data-group-type="checkbox">
-          <input checked={space.private} id="private" type="checkbox" />
+          <input
+            checked={space.private}
+            id="private"
+            onChange={this.handleChange.bind(this)}
+            type="checkbox" />
           <label htmlFor="private">Private space</label>
         </div>
 
         <div className="field-group" data-group-type="checkbox">
-          <input checked={space.featured} id="featured" type="checkbox" />
+          <input
+            checked={space.featured}
+            id="featured"
+            onChange={this.handleChange.bind(this)}
+            type="checkbox" />
           <label htmlFor="featured">Featured space</label>
         </div>
 
@@ -121,7 +159,7 @@ class SpacesEdit extends Component {
       <section className="actions">
         <span className="action" onClick={this.confirmSpaceDeletion.bind(this)}>Delete</span>
         <Link className="action" to={"/"}>Cancel</Link>
-        <span className="action">Save</span>
+        <span className="action" onClick={this.handleSave.bind(this)}>Save</span>
       </section>
     </section>
   }
