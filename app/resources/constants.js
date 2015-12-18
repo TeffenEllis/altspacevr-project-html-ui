@@ -8,5 +8,6 @@ function constantize(array) {
 
 export default constantize([
   "ADD_SPACES",
-  "ADD_USERS"
+  "ADD_USERS",
+  "REMOVE_SPACE"
 ])
