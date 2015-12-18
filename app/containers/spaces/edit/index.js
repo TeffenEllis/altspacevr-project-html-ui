@@ -29,7 +29,7 @@ class SpacesEdit extends Component {
               description: "",
               featured: false,
               image: DEFAULT_IMAGE_URL,
-              members: members.map(member => member.id),
+              members: [],
               "private": false,
               title: "",
               welcome: false
