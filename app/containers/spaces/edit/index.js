@@ -180,7 +180,12 @@ class SpacesEdit extends Component {
       </section>
 
       <section className="actions">
-        <span className="action" data-actionable data-role="danger" onClick={this.confirmSpaceDeletion.bind(this)}>Delete</span>
+        {space.id && <span className="action"
+          data-actionable
+          data-role="danger"
+          onClick={this.confirmSpaceDeletion.bind(this)}>
+          Delete
+        </span>}
         <Link className="action" data-actionable to={"/"}>Cancel</Link>
         <span className="action" data-actionable data-role="persist" onClick={this.handleSave.bind(this)}>Save</span>
       </section>
