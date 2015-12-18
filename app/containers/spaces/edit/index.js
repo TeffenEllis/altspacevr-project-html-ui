@@ -4,6 +4,8 @@ import React, {Component, PropTypes} from "react"
 import data from "resources/data"
 import {Link} from "react-router"
 
+const DEFAULT_IMAGE_URL = "https://d3t5dfbyow1ax1.cloudfront.net/app/images/space-templates/exhibition-base-medium-560x315.jpg"
+
 class SpacesEdit extends Component {
   constructor(props) {
     super(props)
@@ -26,6 +28,7 @@ class SpacesEdit extends Component {
               created_by: 1,
               description: "",
               featured: false,
+              image: DEFAULT_IMAGE_URL,
               members: members.map(member => member.id),
               "private": false,
               title: "",
@@ -48,6 +51,9 @@ class SpacesEdit extends Component {
 
     data.Space.getById(parseInt(this.props.params.id, 10))
       .then(nextSpace => {
+        // 404 handler, could be replaced by extending the data store with promise rejection.
+        if (typeof nextSpace === "undefined") return this.props.history.replaceState(null, "/")
+
         space = nextSpace
 
         if (!space.members || space.members.length === 0) return onComplete()
@@ -99,11 +105,12 @@ class SpacesEdit extends Component {
     const onComplete = () => this.props.history.replaceState(null, "/")
     const {space} = this.state
 
+    if (space.title.length === 0) return this.refs.title.focus()
+
     if (space.id) {
-      data.Space
+      return data.Space
         .updateById(parseInt(space.id, 10), space)
         .then(onComplete)
-      return
     }
 
     data.Space
@@ -119,8 +126,6 @@ class SpacesEdit extends Component {
     }
 
     return <section data-component="spaces-edit">
-      <h1>{this.decoratedTitle()}</h1>
-
       <section className="fields">
         <div className="field-group">
           <label className="label" htmlFor="title">Title:</label>
@@ -130,6 +135,7 @@ class SpacesEdit extends Component {
             id="title"
             onChange={this.handleChange.bind(this)}
             placeholder="Something memorable."
+            ref="title"
             value={space.title} />
         </div>
 
@@ -182,9 +188,9 @@ class SpacesEdit extends Component {
       </section>
 
       <section className="actions">
-        <span className="action" onClick={this.confirmSpaceDeletion.bind(this)}>Delete</span>
-        <Link className="action" to={"/"}>Cancel</Link>
-        <span className="action" onClick={this.handleSave.bind(this)}>Save</span>
+        <span className="action" data-actionable data-role="danger" onClick={this.confirmSpaceDeletion.bind(this)}>Delete</span>
+        <Link className="action" data-actionable to={"/"}>Cancel</Link>
+        <span className="action" data-actionable data-role="persist" onClick={this.handleSave.bind(this)}>Save</span>
       </section>
     </section>
   }

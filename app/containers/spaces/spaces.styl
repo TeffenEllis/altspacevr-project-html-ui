@@ -1,11 +1,21 @@
 [data-component="spaces"]
   align-self center
   flex-flow row wrap
-  max-width 1024px
-  padding 1em
+  justify-content space-between
+  padding 1em 0
+  width 1024px
 
   .field-group.search
     flex 1 0 100%
+    justify-content space-between
 
     .field
-      flex 0 0 25%
+      border-bottom none
+      border-bottom-right-radius 0
+      border-bottom-left-radius 0
+      flex 0 0 33%
+
+    & + [data-component="space"]
+      border-top-right-radius 0
+      border-top-left-radius 0
+

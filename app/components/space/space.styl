@@ -1,24 +1,44 @@
 [data-component="space"]
+  background-repeat no-repeat;
+  background-position 100% 40px
+  background-size contain;
   flex 1 0 100%
   border 1px solid #ddd
   border-radius 3px
   max-width 1024px
+  min-height 185px
 
   .header
+    align-items center
     color black
-    background-color white
+    background-color #eee
     flex-flow row
+    justify-content space-between
     padding 10px 15px
-
-    .title
-      flex-flow row
 
   & + [data-component="space"]
     margin-top 20px
 
   .content
-    padding 15px
+    flex 1 0 auto
+    max-width 65%
+    padding 15px 0 0 15px
+    justify-content space-between
 
   .actions
     flex-flow row
     justify-content flex-end
+
+    .action
+      background-color #eee
+      border-top-left-radius 3px
+      border-top-right-radius 0
+      color black
+      text-transformation uppercase
+      padding 5px 10px
+
+      &:hover
+        filter brightness(110%)
+
+      &:active
+        filter brightness(120%)

@@ -57,15 +57,23 @@ class Spaces extends Component {
           placeholder="Search by name or creator."
           type="text"
           value={query} />
+
+        <div className="actions">
+          <Link className="action" to="/new">Create</Link>
+        </div>
       </section>
 
 
-      {spaces.length ? spaces.map(props => <Space {...props} key={props.id} />) : null}
-
-      <div className="actions">
-        <Link className="action" to="/new">Create</Link>
-      </div>
+      {spaces.length ? spaces.map(props => <Space {...props} key={props.id} />) : this.renderPlaceholder()}
     </section>
+  }
+
+  renderPlaceholder() {
+    return <div className="space-placeholder" data-component="space">
+      <section className="header">
+        {`No results for "${this.state.query}".`}
+      </section>
+    </div>
   }
 }
 
