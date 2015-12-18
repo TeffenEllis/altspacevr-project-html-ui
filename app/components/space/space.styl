@@ -1,0 +1,24 @@
+[data-component="space"]
+  flex 1 0 100%
+  border 1px solid #ddd
+  border-radius 3px
+  max-width 1024px
+
+  .header
+    color black
+    background-color white
+    flex-flow row
+    padding 10px 15px
+
+    .title
+      flex-flow row
+
+  & + [data-component="space"]
+    margin-top 20px
+
+  .content
+    padding 15px
+
+  .actions
+    flex-flow row
+    justify-content flex-end

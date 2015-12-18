@@ -1,10 +1,15 @@
 import "babel-polyfill"
-import "./index.styl"
 
 import React from "react"
 import {render} from "react-dom"
+import {Provider} from "react-redux"
+import {fetchStore} from "resources/store"
 import Application from "./containers/application"
 
 document.addEventListener("DOMContentLoaded", () => {
-  render(<Application />, document.querySelector("main"))
+  fetchStore(store => {
+    render(<Provider store={store}>
+      <Application />
+    </Provider>, document.querySelector("main"))
+  })
 })
