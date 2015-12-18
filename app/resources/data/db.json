@@ -25,6 +25,7 @@
 	"Space": {
 		"1": {
 			"id": 1,
+			"image": "https://d3t5dfbyow1ax1.cloudfront.net/app/images/space-templates/highrise-base-medium-560x315.jpg",
 			"title": "Welcome Space",
 			"description": "Welcome to Altspace! Use this space to get acquainted with the interface",
 			"welcome": true,
@@ -35,22 +36,57 @@
 		},
 		"2": {
 			"id": 2,
+			"image": "https://d3t5dfbyow1ax1.cloudfront.net/app/images/space-templates/conference-room-base-medium-560x315.jpg",
 			"title": "Meeting Room",
 			"description": "Use this room to hold meetings in!",
 			"welcome": false,
 			"private": false,
 			"featured": true,
-			"created_by": 1,
+			"created_by": 2,
 			"members": null
 		},
 		"3": {
 			"id": 3,
+			"image": "https://d3t5dfbyow1ax1.cloudfront.net/app/images/space-templates/desert-island-base-medium-560x315.jpg",
 			"title": "Private Space",
 			"description": "What happens in Altspace, stays in Altspace",
 			"welcome": false,
 			"private": true,
 			"featured": false,
+			"created_by": 3,
+			"members": [1, 2]
+		},
+		"4": {
+			"id": 4,
+			"image": "https://d3t5dfbyow1ax1.cloudfront.net/app/images/space-templates/exhibition-base-medium-560x315.jpg",
+			"title": "Let's play Chess",
+			"description": "Enjoy a casual game of chess in AltspaceVR.",
+			"welcome": false,
+			"private": true,
+			"featured": false,
 			"created_by": 1,
+			"members": [1, 2]
+		},
+		"5": {
+			"id": 5,
+			"image": "https://d3t5dfbyow1ax1.cloudfront.net/app/images/space-templates/theatre-base-medium-560x315.jpg",
+			"title": "AltspaceVR Cinema",
+			"description": "Watch a film while floating in deep space.",
+			"welcome": false,
+			"private": true,
+			"featured": false,
+			"created_by": 2,
+			"members": [1, 2]
+		},
+		"6": {
+			"id": 6,
+			"image": "https://d3t5dfbyow1ax1.cloudfront.net/app/images/space-templates/dnd-tavern-base-medium-560x315.png",
+			"title": "Dungeons and Dragons Tavern",
+			"description": "I cast magic missle... At the darkness!",
+			"welcome": false,
+			"private": true,
+			"featured": false,
+			"created_by": 3,
 			"members": [1, 2]
 		}
 	}
