@@ -4,30 +4,49 @@ import React, {Component, PropTypes} from "react"
 import data from "resources/data"
 import {Link} from "react-router"
 
+function createSpace() {
+  return {
+    description: "",
+    featured: false,
+    private: false,
+    title: "",
+    welcome: false
+  }
+}
+
 class SpacesEdit extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
-
-    if (props.params.id) {
-      Object.assign(this.state, {
-        members: [],
-        status: "fetching",
-        space: {}
-      })
-    }
-    else {
-      Object.assign(this.state, {
-        members: [],
-        status: "ready",
-        space: {}
-      })
+    this.state = {
+      members: [],
+      status: props.params.id ? "fetching" : "creating",
+      space: {}
     }
   }
 
   componentDidMount() {
-    if (this.state.status !== "fetching") return
+    if (this.state.status === "creating") {
+      data.User
+        .getAll()
+        .then(members => {
+          this.setState({
+            members,
+            space: {
+              created_by: 1,
+              description: "",
+              featured: false,
+              members: members.map(member => member.id),
+              private: false,
+              title: "",
+              welcome: false
+            },
+            status: "ready"
+          })
+        })
+
+      return
+    }
 
     let space = {}
     const members = []
@@ -64,15 +83,13 @@ class SpacesEdit extends Component {
   }
 
   decoratedTitle() {
-    const base = "Altspace Spaces Admin"
     const appended = this.state.space.id ? ` - ${this.state.space.title}` : ""
 
-    return base + appended
+    return "Altspace Spaces Admin" + appended
   }
 
   handleChange({target}) {
     const {space} = this.state
-
     let value
 
     switch (target.type) {
@@ -89,9 +106,19 @@ class SpacesEdit extends Component {
   }
 
   handleSave() {
+    const onComplete = () => this.props.history.replaceState(null, "/")
+    const {space} = this.state
+
+    if (space.id) {
+      data.Space
+        .updateById(parseInt(space.id, 10), space)
+        .then(onComplete)
+      return
+    }
+
     data.Space
-      .updateById(parseInt(this.state.space.id, 10), this.state.space)
-      .then(() => this.props.history.replaceState(null, "/"))
+      .create(space)
+      .then(onComplete)
   }
 
   render() {

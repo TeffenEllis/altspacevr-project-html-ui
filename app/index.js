@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <Route component={Application} path="/">
       <IndexRoute component={Spaces} />
       <Route component={EditSpaces} path="/edit/:id" />
+      <Route component={EditSpaces} path="/new" />
     </Route>
   </Router>, document.querySelector("main"))
 })

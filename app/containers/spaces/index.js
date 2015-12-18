@@ -2,6 +2,7 @@ import "./spaces.styl"
 
 import Space from "components/space"
 import React, {Component} from "react"
+import {Link} from "react-router"
 import data from "resources/data"
 
 class Spaces extends Component {
@@ -33,7 +34,7 @@ class Spaces extends Component {
       {users.length && spaces.length ? spaces.map(this.renderSpace.bind(this)) : null}
 
       <div className="actions">
-        <span className="action">Create</span>
+        <Link className="action" to="/new">Create</Link>
       </div>
     </section>
   }
