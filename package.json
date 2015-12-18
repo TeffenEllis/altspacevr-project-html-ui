@@ -1,6 +1,6 @@
 {
   "name": "altspacevr-project-html-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Admin interface for AltspaceVR spaces.",
   "main": "scripts/watch.js",
   "scripts": {
