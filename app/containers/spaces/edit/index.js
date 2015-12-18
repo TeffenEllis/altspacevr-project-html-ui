@@ -50,7 +50,7 @@ class SpacesEdit extends Component {
           .getAll()
           .then(members => this.setState({
             members,
-            space,
+            space: Object.assign({}, space),
             status: "ready"
           }))
       })
