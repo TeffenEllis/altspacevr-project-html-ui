@@ -9,7 +9,7 @@ class Space extends Component {
     return <section data-component="space">
       <section className="header">
         <div className="title">
-          {`${props.title} created by ${props.created_by}`}
+          {`${props.title} created by ${props.user.first_name} ${props.user.last_name}`}
         </div>
       </section>
 
@@ -34,6 +34,7 @@ Space.propTypes = {
   members: PropTypes.array,
   private: PropTypes.bool.isRequired, // eslint-disable-line quote-props
   title: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   welcome: PropTypes.bool.isRequired
 }
 
