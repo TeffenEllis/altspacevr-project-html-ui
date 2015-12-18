@@ -1,6 +1,7 @@
 import "./space.styl"
 
 import React, {Component, PropTypes} from "react"
+import {Link} from "react-router"
 
 class Space extends Component {
   render() {
@@ -19,7 +20,7 @@ class Space extends Component {
         </div>
 
         <section className="actions">
-          <span className="action">Edit</span>
+          <Link className="action" to={`/edit/${props.id}`}>Edit</Link>
         </section>
       </section>
     </section>
