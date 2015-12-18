@@ -28,7 +28,7 @@ class Space extends Component {
 }
 
 Space.propTypes = {
-  created_by: PropTypes.number.isRequired, // eslint-disable-line camelcase
+  created_by: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   featured: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,

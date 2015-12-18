@@ -4,16 +4,6 @@ import React, {Component, PropTypes} from "react"
 import data from "resources/data"
 import {Link} from "react-router"
 
-function createSpace() {
-  return {
-    description: "",
-    featured: false,
-    private: false,
-    title: "",
-    welcome: false
-  }
-}
-
 class SpacesEdit extends Component {
   constructor(props) {
     super(props)
@@ -37,7 +27,7 @@ class SpacesEdit extends Component {
               description: "",
               featured: false,
               members: members.map(member => member.id),
-              private: false,
+              "private": false,
               title: "",
               welcome: false
             },

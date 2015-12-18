@@ -19,9 +19,7 @@
     }],
     "block-spacing": [2, "always"],
     "brace-style": [1, "stroustrup", { "allowSingleLine": true }],
-    "camelcase": [1, {
-      "properties": "always"
-    }],
+    "camelcase": 0,
     "comma-dangle": [2, "never"],
     "comma-spacing": [2, {
       "before": false,
