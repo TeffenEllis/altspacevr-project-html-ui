@@ -10,39 +10,62 @@ class Spaces extends Component {
     super(props)
 
     this.state = {
-      spaces: [],
-      users: []
+      query: "",
+      spaces: []
     }
   }
 
   componentDidMount() {
-    data.Space
-      .getAll()
-      .then(spaces => this.setState({spaces}))
+    const {Space, User} = data
 
-    data.User
-      .getAll()
-      .then(users => this.setState({users}))
+    Space.getAll().then(spaces => {
+      User.getAll().then(users => {
+        spaces = spaces.map(space => {
+          return Object.assign(space, {
+            user: users.find(({id}) => id === space.created_by)
+          })
+        })
+
+        this.setState({spaces})
+      })
+    })
+  }
+
+  queryChange({target: {value}}) {
+    this.setState({query: value})
   }
 
   render() {
-    const {spaces, users} = this.state
+    const {query} = this.state
+    let {spaces} = this.state
+
+    function matchedQuery({title, user: {first_name, last_name}}) {
+      const pattern = new RegExp(query, "i")
+
+      return [title, `${first_name} ${last_name}`].some(criteria => criteria.search(pattern) !== -1)
+    }
+
+    if (query.length > 0) spaces = spaces.filter(matchedQuery)
 
     return <section data-component="spaces">
       <h1>Altspace Spaces Admin</h1>
 
-      {users.length && spaces.length ? spaces.map(this.renderSpace.bind(this)) : null}
+      <section className="field-group search">
+        <input
+          className="field"
+          onChange={this.queryChange.bind(this)}
+          placeholder="Search by name or creator."
+          type="text"
+          value={query} />
+      </section>
+
+
+      {spaces.length ? spaces.map(props => <Space {...props} key={props.id} />) : null}
 
       <div className="actions">
         <Link className="action" to="/new">Create</Link>
       </div>
     </section>
-  }
-
-  renderSpace(props) {
-    const user = this.state.users.find(user => user.id === props.created_by)
-
-    return <Space {...props} key={props.id} user={user} />
   }
 }
 
